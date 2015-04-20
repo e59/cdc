@@ -1,0 +1,8 @@
+<div class="form-group element">
+    <label><?php echo label($key); ?><?php echo \Cdc\Widget\Formatter\Conditional\Required::invoke($def[$key]); ?></label>
+    <div class="<?php echo $key; ?>">
+        <div class="form-group radio element">
+            <?php echo $widgets[$key]; ?>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,28 @@
+{
+    "name": "cangulo/cdc-toolkit",
+    "description": "PHP Toolkit",
+    "homepage": "http://calmaamigo.com",
+    "type": "library",
+    "license": ["Apache-2.0"],
+    "version": "dev-master",
+    "autoload": {
+        "psr-0": {
+            "Cdc": "src/"
+        },
+        "files": ["src/Cdc/Functions.php"]
+    },
+    "require": {
+        "php": ">=5.4.0",
+        "nette/mail": "~2.3@dev",
+        "nette/http": "~2.3@dev",
+        "nette/finder": "~2.3@dev",
+        "nette/security": "~2.3@dev",
+        "nette/utils": "~2.3@dev",
+        "rhumsaa/uuid": "2.8.*@dev",
+        "hautelook/phpass": "dev-master",
+        "moontoast/math": "~1.1",
+        "symfony/console": "~2.3",
+        "knplabs/knp-menu": "~2.0@dev"
+    },
+    "minimum-stability": "dev"
+}

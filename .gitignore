@@ -1,0 +1,12 @@
+nbproject
+coverage
+.classpath
+.project
+.buildpath
+.settings
+Thumbs.db
+.directory
+.DS_Store
+~$
+orig$
+vendor

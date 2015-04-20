@@ -1,0 +1,97 @@
+<?xml version="1.0" ?>
+<dataset>
+    <table name="test">
+        <column>id</column>
+        <column>date</column>
+        <column>email</column>
+        <column>body</column>
+        <column>option</column>
+        <row>
+            <null />
+            <value>2011-08-05 11:00</value>
+            <value>teste1@teste.com.br</value>
+            <value>This is test 1</value>
+            <value>1</value>
+        </row>
+        <row>
+            <null />
+            <value>2010-08-04 11:00</value>
+            <value>teste2@teste.com.br</value>
+            <value>This is test 2</value>
+            <value>0</value>
+        </row>
+        <row>
+            <null />
+            <value>2009-08-03 11:00</value>
+            <value>teste3@teste.com.br</value>
+            <value>This is test 3</value>
+            <value>1</value>
+        </row>
+        <row>
+            <null />
+            <value>2008-08-02 11:00</value>
+            <value>teste4@teste.com.br</value>
+            <value>This is test 4</value>
+            <value>1</value>
+        </row>
+        <row>
+            <null />
+            <value>2007-08-01 11:00</value>
+            <value>teste5@teste.com.br</value>
+            <value>This is test 5</value>
+            <value>0</value>
+        </row>
+    </table>
+    <table name="category">
+        <column>id</column>
+        <column>name</column>
+        <row>
+            <null />
+            <value>This is category 1</value>
+        </row>
+        <row>
+            <null />
+            <value>This is category 2</value>
+        </row>
+        <row>
+            <null />
+            <value>This is category 3</value>
+        </row>
+        <row>
+            <null />
+            <value>This is category 4</value>
+        </row>
+    </table>
+    <table name="test_category">
+        <column>test_id</column>
+        <column>category_id</column>
+        <row>
+            <value>1</value>
+            <value>1</value>
+        </row>
+        <row>
+            <value>1</value>
+            <value>2</value>
+        </row>
+        <row>
+            <value>1</value>
+            <value>3</value>
+        </row>
+    </table>
+        <row>
+            <value>1</value>
+            <value>4</value>
+        </row>
+        <row>
+            <value>2</value>
+            <value>1</value>
+        </row>
+        <row>
+            <value>2</value>
+            <value>4</value>
+        </row>
+        <row>
+            <value>3</value>
+            <value>3</value>
+        </row>
+</dataset>

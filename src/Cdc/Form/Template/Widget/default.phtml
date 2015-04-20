@@ -1,0 +1,25 @@
+<?php
+$label = label($key);
+
+if (!$search) {
+    $label .= \Cdc\Widget\Formatter\Conditional\Required::invoke($def[$key]);
+}
+
+if (array_key_exists(\Cdc\Definition::TYPE_WIDGET, $def[$key][\Cdc\Definition::TYPE_WIDGET])) {
+    $widgetType = $def[$key][\Cdc\Definition::TYPE_WIDGET][\Cdc\Definition::TYPE_WIDGET];
+} else {
+    $widgetType = 'text';
+}
+
+
+if ($widgetType == 'hidden'):
+
+    echo $widget;
+
+else:
+    ?>
+    <div class="element <?php echo $key; ?> form-group">
+        <label for="<?php echo $key; ?>"><?php echo $label; ?></label>
+        <?php echo $widget; ?>
+    </div>
+<?php endif; ?>

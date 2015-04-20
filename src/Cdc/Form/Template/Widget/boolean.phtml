@@ -1,0 +1,5 @@
+<div class="form-group checkbox element">
+    <label class="<?php echo $key; ?>" for="<?php echo $key; ?>">
+        <?php echo $widgets[$key]; ?> <?php echo label($key); ?><?php echo \Cdc\Widget\Formatter\Conditional\Required::invoke($def[$key]); ?>
+    </label>
+</div>

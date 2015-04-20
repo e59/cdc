@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<phpunit bootstrap="./bootstrap.php"
+         colors="false"
+         convertErrorsToExceptions="true"
+         convertNoticesToExceptions="true"
+         convertWarningsToExceptions="true"
+         stopOnIncomplete="true"
+         stopOnSkipped="true"
+         stopOnFailure="true">
+    <php>
+        <var name="DB_DSN" value="sqlite::memory:" />
+        <var name="DB_USER" value="postgres" />
+        <var name="DB_PASSWD" value="pgadmin" />
+        <var name="DB_DBNAME" value=":memory:" />
+        <var name="PEAR_PATH" value="/usr/share/php" />
+        <var name="TIMEZONE" value="America/Recife" />
+    </php>
+    <filter>
+        <blacklist>
+            <directory>/usr/share/php</directory>
+            <directory>../src/Cdc/Vendor</directory>
+        </blacklist>
+        <whitelist addUncoveredFilesFromWhitelist="true">
+            <directory suffix=".php">../src/Cdc</directory>
+        </whitelist>
+    </filter>
+    <!--logging>
+        <log type="coverage-html" target="../coverage" charset="UTF-8" yui="true" highlight="true" />
+    </logging-->
+    <testsuites>
+        <testsuite name="Cdc Toolkit Test Suite">
+            <directory>./Cdc</directory>
+        </testsuite>
+    </testsuites>
+
+</phpunit>
+

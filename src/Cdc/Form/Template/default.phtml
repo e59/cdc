@@ -1,0 +1,19 @@
+<form method="post" action="<?php if (isset($action)) echo $action; ?>" enctype="multipart/form-data" class="form">
+    <fieldset>
+        <?php if ($legend): ?>
+            <legend><?php echo $legend; ?></legend>
+        <?php endif; ?>
+        <?php foreach ($renderedWidgets as $k => $v): ?>
+            <?php echo $v; ?>
+        <?php endforeach; ?>
+        <?php echo $submit; ?>
+    </fieldset>
+</form>
+
+
+
+
+
+
+
+
