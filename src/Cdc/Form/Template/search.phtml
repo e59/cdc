@@ -1,3 +1,4 @@
+<?php if (!$renderedWidgets) return; // não mostrar apenas os botões, se nenhum elemento retornar widget. ?>
 <form method="get" action="" class="form_search form">
     <fieldset><legend><?php echo $legend; ?></legend>
         <?php foreach ($renderedWidgets as $k => $v): ?>

@@ -160,4 +160,8 @@ class Route {
         $this->parameters = $parameters;
     }
 
+    public function setParameter($key, $value) {
+        $this->parameters[$key] = $value;
+    }
+
 }

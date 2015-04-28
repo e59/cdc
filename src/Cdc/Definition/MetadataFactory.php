@@ -12,18 +12,30 @@ class MetadataFactory {
         if ($operation) {
             $definition->setOperation($operation);
         }
-        $def = $definition->query(D::TYPE_WIDGET, D::TYPE_RELATION)->byTag('search')->fetch();
+
+        $def = $definition->query(D::TYPE_WIDGET, D::TYPE_RELATION)->fetch();
+
+        $result = array();
 
         foreach ($def as $key => $value) {
-            if ($value['type'] == D::TYPE_RELATION) {
-                $def[$key][D::TYPE_WIDGET]['widget'] = 'text';
-                $def[$key][D::TYPE_WIDGET]['attributes']['class'] = 'search-general';
+            if (self::hasTag($value, 'search')) {
+                if ($value['type'] == D::TYPE_RELATION) {
+                    $value[D::TYPE_WIDGET]['widget'] = 'text';
+                    $value[D::TYPE_WIDGET]['attributes']['class'] = 'search-general';
+                }
+                $result[$key] = $value;
+                break;
+            }
+
+            if (self::hasTag($value, '^related-.*')) {
+                $value[D::TYPE_WIDGET]['widget'] = 'none';
+                $result[$key] = $value;
                 break;
             }
         }
 
         $definition->setOperation($oldOp);
-        return $def;
+        return $result;
     }
 
     public static function form(D $definition, $operation = null) {
