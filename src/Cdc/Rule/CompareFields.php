@@ -35,6 +35,11 @@ class CompareFields extends Rule {
     }
 
     public function check($index, &$row, $definition = null, $rowset = array()) {
+
+        if (!isset($row[$index])) {
+            return array();
+        }
+
         $field_1 = $row[$index];
         $field_2 = $row[$this->_field];
 
