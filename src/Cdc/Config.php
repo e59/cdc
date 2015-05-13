@@ -30,6 +30,8 @@ abstract class Config extends \Nette\Object {
 
     public static $sender;
 
+    public static $pg_fts_regconfig = 'portuguese';
+
     private static $definition_cache = array();
 
     /**
