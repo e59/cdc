@@ -333,12 +333,12 @@ class Form {
 
                         //if( $val )
                         //{
-                        if ($opt === $val) {
+                        if ((string) $opt === (string) $val) {
                             $checked = ' checked="checked"';
                         }
                         //}
                         $attribs = $this->_attribs($v, true);
-                        $widgets[$k] .= '<div class="radio"><label>' . '<input ' . ($id ? 'id="' . $id . '-' . $opt_count . '"' : '') . ' value="' . htmlspecialchars($opt, $this->quote_mode, 'UTF-8') . '" ' . $attribs['html'] . $checked . '>' . $label . '</label></div>';
+                        $widgets[$k] .= '<div class="radio radioitem"><label>' . '<input ' . ($id ? 'id="' . $id . '-' . $opt_count . '"' : '') . ' value="' . htmlspecialchars($opt, $this->quote_mode, 'UTF-8') . '" ' . $attribs['html'] . $checked . '>' . $label . '</label></div>';
                         $opt_count++;
                     }
                     break;

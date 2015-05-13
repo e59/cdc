@@ -23,14 +23,27 @@ class MetadataFactory {
                     $value[D::TYPE_WIDGET]['widget'] = 'text';
                     $value[D::TYPE_WIDGET]['attributes']['class'] = 'search-general';
                 }
+
+            if (self::hasTag($value, 'boolean')) {
+                $value[D::TYPE_WIDGET]['widget'] = 'radio';
+                $value[D::TYPE_WIDGET]['options'] = array(
+                    '' => '[Não filtrar]',
+                    '1' => 'Sim',
+                    '0' => 'Não',
+                );
+                $value[D::TYPE_WIDGET]['attributes']['default'] = '';
                 $result[$key] = $value;
-                break;
+            }
+
+
+
+                $result[$key] = $value;
+                continue;
             }
 
             if (self::hasTag($value, '^related-.*')) {
                 $value[D::TYPE_WIDGET]['widget'] = 'none';
                 $result[$key] = $value;
-                break;
             }
         }
 
