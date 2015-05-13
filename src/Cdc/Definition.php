@@ -530,7 +530,7 @@ class Definition {
                 continue;
             }
             if ($def[$key]['type'] == self::TYPE_RELATION) {
-                $result['fts @@'] = new \Cdc\Sql\Parameter($key, "plainto_tsquery('" . \C::$pg_fts_regconfig . "', %s)", $value);
+                $result['fts @@'] = new \Cdc\Sql\Parameter($key, "plainto_tsquery('" . \C::$pg_fts_regconfig . "', %s)", \Nette\Utils\Strings::webalize($value, ' '));
             } else {
                     $result[$key . ' ='] = $value;
             }
