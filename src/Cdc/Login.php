@@ -1,22 +1,19 @@
 <?php
 
-namespace Cdc\Controller;
+namespace Cdc;
 
 use \C as C;
-use \Cdc\Definition;
 
-class Login extends \Cdc\Controller {
+trait Login {
 
     public $loginDestination = 'home';
     public $logoutDestination = 'home';
-    public $index = 'login';
-    public $module = '';
 
     /**
      * If this is false, no layout file will be used (i.e. request ends here)
      * @var string
      */
-    public $template = false;
+    public $loginTemplate = false;
 
     public function process() {
         $post = C::$request->getPost();
@@ -106,7 +103,7 @@ class Login extends \Cdc\Controller {
 
         C::$response->setCode(\Nette\Http\Response::S403_FORBIDDEN);
 
-        return $this->getForm()->render($this->getTemplate($this->template));
+        return $this->getForm()->render($this->getTemplate($this->loginTemplate));
     }
 
     public function logoutAction() {

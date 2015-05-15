@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Cdc Toolkit
  *
@@ -24,10 +23,10 @@
 /**
  * Obtém informações sobre um CEP diretamente da página dos correios.
  */
-
 namespace Cdc\Client;
 
-class Cep {
+class Cep
+{
 
     const RESULT_CEP = 'cep';
     const RESULT_UF = 'uf';
@@ -41,7 +40,8 @@ class Cep {
      * @param mixed $extraParams Peculiaridades de cada forma de obtenção de endereço
      * @return array Array com os índices RESULT_* desta classe.
      */
-    public static function query($cep, $extraParams = array()) {
+    public static function query($cep, $extraParams = array())
+    {
         if ($extraParams) {
             return Cdc_Client_Cep_Edne::query($cep, $extraParams);
         }
@@ -69,13 +69,17 @@ class Cep {
         $buffer = curl_exec($curl_handle);
         curl_close($curl_handle);
 
-        $document = new DomDocument;
+        $document = new \DomDocument;
 
         libxml_use_internal_errors(true); // Cheio de warning interpretando a página dos correios
         $document->loadHTML($buffer);
         libxml_use_internal_errors(false);
 
         $elements = $document->getElementsByTagName('table');
+
+        if (!$elements->length) {
+            return array();
+        }
 
         $endereco = $elements->item(2)->childNodes->item(0)->childNodes;
 
@@ -100,5 +104,4 @@ class Cep {
 
         return array();
     }
-
 }

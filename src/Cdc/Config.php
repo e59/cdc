@@ -1,6 +1,4 @@
-<?php
-
-namespace Cdc;
+<?php namespace Cdc;
 
 use \Nette\Utils\Arrays as A,
     \Nette\Http\Session,
@@ -15,7 +13,8 @@ use \Nette\Utils\Arrays as A,
 /**
  * This would also work as simple global variables, but I need IDE autocomplete
  */
-abstract class Config extends \Nette\Object {
+abstract class Config extends \Nette\Object
+{
 
     /**
      * Array [template path, module name]
@@ -23,15 +22,10 @@ abstract class Config extends \Nette\Object {
      * @var array
      */
     public static $layoutTemplate = ['layout/default.phtml', ''];
-
     public static $dateFormat = 'd/m/Y';
-
     public static $dateTimeFormat = 'd/m/Y H:i:s';
-
     public static $sender;
-
     public static $pg_fts_regconfig = 'portuguese';
-
     private static $definition_cache = array();
 
     /**
@@ -39,7 +33,8 @@ abstract class Config extends \Nette\Object {
      * @param type $definition_name
      * @return \Cdc\Definition
      */
-    public static function getDefinition($definition_name, $operation = DEFAULT_OPERATION) {
+    public static function getDefinition($definition_name, $operation = DEFAULT_OPERATION)
+    {
         if (!array_key_exists($definition_name, self::$definition_cache)) {
             $definition = new $definition_name($operation);
             self::$definition_cache[$definition_name] = $definition;
@@ -155,15 +150,10 @@ abstract class Config extends \Nette\Object {
      * @var string
      */
     public static $tmp;
-
     public static $upload;
-
     public static $upload_abs;
-
     public static $root;
-
     public static $root_abs;
-
     public static $base;
 
     /**
@@ -171,13 +161,9 @@ abstract class Config extends \Nette\Object {
      * @var array
      */
     public static $db;
-
     public static $default_db;
-
     public static $timezone;
-
     public static $modules;
-
     public static $resources;
 
     /**
@@ -185,7 +171,6 @@ abstract class Config extends \Nette\Object {
      * @var \Cdc\Dispatcher
      */
     public static $dispatcher;
-
     public static $labels;
 
     /**
@@ -193,18 +178,30 @@ abstract class Config extends \Nette\Object {
      * @var \Hautelook\Phpass\PasswordHash
      */
     public static $hasher;
-
     public static $acl = array();
-
     public static $default_login_controller = '\Duke\Controller\Login';
-
     public static $title = 'Default Title';
 
-    private function __construct() {
+    private function __construct()
+    {
 
     }
 
-    public static function source($settings, $application = null, $defaultSettings = array()) {
+    public static function preSource($settings, $application, $defaultSettings)
+    {
+
+    }
+
+    public static function postSource($settings, $application, $defaultSettings)
+    {
+
+    }
+
+    public static function source($settings, $application = null, $defaultSettings = array())
+    {
+
+        C::preSource($settings, $application, $defaultSettings);
+
         C::setEnvironment($settings, $application, $defaultSettings);
 
         C::registerDatabaseConnections();
@@ -221,9 +218,13 @@ abstract class Config extends \Nette\Object {
         self::$hasher = new PasswordHash(10, false);
 
         date_default_timezone_set(C::$timezone);
+
+
+        C::postSource($settings, $application, $defaultSettings);
     }
 
-    protected static function initializeUtils() {
+    protected static function initializeUtils()
+    {
         $requestFactory = new RequestFactory;
         C::$request = $requestFactory->createHttpRequest();
 
@@ -235,7 +236,8 @@ abstract class Config extends \Nette\Object {
         C::$menuFactory = new \Knp\Menu\MenuFactory;
     }
 
-    public static function startSessionFor($sessionName) {
+    public static function startSessionFor($sessionName)
+    {
 
         $session = new Session(C::$request, C::$response);
         $session->start();
@@ -243,7 +245,8 @@ abstract class Config extends \Nette\Object {
         self::$session = $session->getSection($sessionName);
     }
 
-    protected static function setEnvironment($settings, $defaultSettings = array()) {
+    protected static function setEnvironment($settings, $defaultSettings = array())
+    {
 
         $settings = A::mergeTree($settings, $defaultSettings);
 
@@ -255,7 +258,8 @@ abstract class Config extends \Nette\Object {
         }
     }
 
-    protected static function registerDatabaseConnections() {
+    protected static function registerDatabaseConnections()
+    {
         foreach (C::$db as $key => $value) {
             $dsn = A::get($value, 'dsn');
             $user = A::get($value, 'user', null);
@@ -278,7 +282,8 @@ abstract class Config extends \Nette\Object {
     /**
      * @return \PDO
      */
-    public static function connection() {
+    public static function connection()
+    {
         if (C::$debug) {
             $mode = \Cdc\Pdo\Pool::DEBUG;
         } else {
@@ -291,12 +296,14 @@ abstract class Config extends \Nette\Object {
      *
      * @return \PDO
      */
-    public static function pdo() {
+    public static function pdo()
+    {
         self::connection();
         return self::$pdo;
     }
 
-    protected static function addModuleLoaders() {
+    protected static function addModuleLoaders()
+    {
         foreach (C::$modules as $k => $v) {
             C::$loader->add($k, $v);
             $conf = $v . DIRECTORY_SEPARATOR . 'boot.php';
@@ -306,7 +313,8 @@ abstract class Config extends \Nette\Object {
         }
     }
 
-    public static function exec() {
+    public static function exec()
+    {
         $content = null;
         $controller = null;
 
@@ -349,7 +357,8 @@ abstract class Config extends \Nette\Object {
         return array($controller, $content);
     }
 
-    public static function configureRouter() {
+    public static function configureRouter()
+    {
         $router = self::$router = new \Cdc\Router;
         $router->setBasePath(C::$root);
         foreach (C::$modules as $key => $value) {
@@ -371,7 +380,8 @@ abstract class Config extends \Nette\Object {
         C::$dispatcher = new \Cdc\Dispatcher($router, $route);
     }
 
-    protected static function loadModuleResources() {
+    protected static function loadModuleResources()
+    {
         foreach (C::$modules as $key => $value) {
             if ($key) {
                 $key .= '\\';
@@ -383,7 +393,8 @@ abstract class Config extends \Nette\Object {
         }
     }
 
-    public static function getResources($roles) {
+    public static function getResources($roles)
+    {
         if (!$roles) {
             return array();
         }
@@ -392,12 +403,13 @@ abstract class Config extends \Nette\Object {
             $result = $sql->cols(array('grupo_id', 'permissao_id'))->from(array('permissao'))->where(array('grupo_id in' => $roles))->stmt()->fetchAll();
             return $result;
         } catch (\Exception $e) {
-            // just keep it quiet
+// just keep it quiet
             return array();
         }
     }
 
-    public static function createAcl() {
+    public static function createAcl()
+    {
         if (!C::$acl && C::$user) {
 
             $auth = C::$user->getAuthorizator();
@@ -417,7 +429,7 @@ abstract class Config extends \Nette\Object {
                 try {
                     $auth->addRole((string) $role);
                 } catch (\Exception $e) {
-                    // really don't care
+// really don't care
                 }
             }
 
@@ -426,7 +438,7 @@ abstract class Config extends \Nette\Object {
                 try {
                     $auth->addResource($resource['permissao_id']);
                 } catch (\Exception $e) {
-                    // sure
+// sure
                 }
                 $auth->allow((string) $resource['grupo_id'], $resource['permissao_id']);
                 C::$acl[$resource['permissao_id']] = true;
@@ -436,7 +448,8 @@ abstract class Config extends \Nette\Object {
         }
     }
 
-    public static function resourceAllowed($resource, $skip = false) {
+    public static function resourceAllowed($resource, $skip = false)
+    {
         C::createAcl();
         if ($skip) {
             return true;
@@ -454,7 +467,8 @@ abstract class Config extends \Nette\Object {
         return false;
     }
 
-    public static function routeAllowed(\Cdc\Route $route, $skip_check = false) {
+    public static function routeAllowed(\Cdc\Route $route, $skip_check = false)
+    {
         C::createAcl();
 
         if ($skip_check) {
@@ -472,7 +486,7 @@ abstract class Config extends \Nette\Object {
         }
 
         if ($target['resource'] == 'authenticated') {
-            // Apenas para usuários autenticados
+// Apenas para usuários autenticados
             return C::$user->isLoggedIn();
         }
 
@@ -494,5 +508,4 @@ abstract class Config extends \Nette\Object {
         }
         return array_key_exists($target['resource'], self::$acl);
     }
-
 }

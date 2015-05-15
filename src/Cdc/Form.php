@@ -317,6 +317,11 @@ class Form {
                     $v['type'] = 'radio';
                     // $v['name'] .= '[]';
                     $options = self::obterOpcoes($v);
+
+                    if (!f($v, 'required')) {
+                        $options = array_merge(array('' => 'Não'), $options);
+                    }
+
                     unset($v['options']);
                     unset($v['value']);
                     $widgets[$k] = '<input type="hidden" value="" name="' . $v['name'] . '">';
