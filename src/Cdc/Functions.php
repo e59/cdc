@@ -204,6 +204,7 @@ function display_system_events_joined($return = false, $root = array()) {
  *
  * @param string $string
  * @param mixed $value Array (uses vsprintf), boolean (returns fallback if false) or else (uses sprintf)
+ * @param fallback Fallback value
  */
 function csprintf($string, $value, $fallback = null) {
     if (true === $value) {
