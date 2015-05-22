@@ -182,7 +182,13 @@ class Form {
                     break;
                 case 'select':
                     unset($v['type']);
+
+                    if (isset($v['multiple'])) {
+                        $v['name'] .= '[]';
+                    }
+
                     $attrs = $this->_attribs($v, true);
+
 
                     $options = self::obterOpcoes($v);
 
