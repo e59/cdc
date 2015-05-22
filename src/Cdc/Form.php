@@ -213,15 +213,39 @@ class Form {
                         }
                     }
                     $optionsString = '';
+
                     $emptyOption = $emptyOptionSelected;
-                    foreach ($options as $col => $colval) {
-                        if ((string) $col === (string) $attrs['value']) {
-                            $selected = ' selected="selected"';
-                            $emptyOption = $emptyOptionNotSelected;
+
+                    if (isset($v['multiple'])) {
+                        $emptyOption = '';
+                        if ($v['value']) {
+                            $val = array_keys($v['value']);
                         } else {
-                            $selected = '';
+                            $val = array();
                         }
-                        $optionsString .= '<option value="' . $col . '"' . $selected . '>' . $colval . '</option>';
+                        foreach ($options as $opt => $label) {
+                            $checked = '';
+                            $valor = htmlspecialchars($opt, $this->quote_mode, 'UTF-8');
+                            if ($val) {
+                                $optIndex = array_search($opt, $val);
+                                if (false !== $optIndex) {
+                                    $checked = ' selected="selected"';
+                                    // $hidden_fields .= '<input type="hidden" name="' . $v['name'] . '[previous]" value="' . $valor . '">';
+                                }
+                            }
+                            $optionsString .= '<option value="' . $valor . '"' . $checked . '>' . $label . '</option>';
+                        }
+                    } else {
+                        foreach ($options as $col => $colval) {
+                            if ((string) $col === (string) $attrs['value']) {
+                                $selected = ' selected="selected"';
+                                $emptyOption = $emptyOptionNotSelected;
+                            } else {
+                                $selected = '';
+                            }
+                            $optionsString .= '<option value="' . $col . '"' . $selected . '>' . $colval . '</option>';
+                        }
+
                     }
                     $widgets[$k] .= $emptyOption . $optionsString . '</select>';
                     break;
