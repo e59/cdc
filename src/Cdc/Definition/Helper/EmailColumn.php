@@ -17,6 +17,7 @@ class EmailColumn extends Helper {
             \Cdc\Definition::OPERATION => self::$defaultOperations,
             \Cdc\Definition::TYPE_RULE => array(
                 array('\Cdc\Rule\Trim'),
+                array('\Cdc\Rule\Lower'),
                 array('\Cdc\Rule\Email'),
             ),
         );
