@@ -168,8 +168,8 @@ class ArrayHelper {
     public static function arrayRegroupedByKey($array, $key) {
         $return = array();
 
-        foreach ($array as $item) {
-            $return[$item[$key]][] = $item;
+        foreach ($array as $k => $item) {
+            $return[$item[$key]][$k] = $item;
         }
 
         return $return;
