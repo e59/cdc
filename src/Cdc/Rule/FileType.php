@@ -73,7 +73,7 @@ class FileType extends Rule {
             }
 
             $pathInfo = pathinfo($fileName);
-            $ext = A::get($pathInfo, 'extension');
+            $ext = A::get($pathInfo, 'extension', false);
             if (!in_array(mb_strtolower($ext, 'UTF-8'), $this->extensions)) {
                 $result[] = 'Extensão inválida: ' . $ext;
             }
