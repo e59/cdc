@@ -153,7 +153,9 @@ class Route {
     }
 
     public function getParameter($key) {
-        return $this->parameters[$key];
+        if (array_key_exists($key, $this->parameters)) {
+            return $this->parameters[$key];
+        }
     }
 
     public function setParameters(array $parameters) {
