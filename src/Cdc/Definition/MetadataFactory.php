@@ -78,6 +78,34 @@ class MetadataFactory {
         return $def;
     }
 
+    public static function order(D $definition, $operation = null) {
+        $oldOp = $definition->getOperation();
+        if ($operation) {
+            $definition->setOperation($operation);
+        }
+        $def = $definition->query(D::TYPE_COLUMN)->fetch();
+        $result = array();
+
+        $last = array();
+        foreach ($def as $key => $value) {
+            if ($r = self::hasTag($value, '^\d+ order asc')) {
+                $result[$key] = 'asc';
+            } elseif ($r = self::hasTag($value, '^\d+ order desc')) {
+                $result[$key] = 'desc';
+            } elseif (self::hasTag($value, '^order asc')) {
+                $last[$key] = 'asc';
+            } elseif (self::hasTag($value, '^order desc')) {
+                $last[$key] = 'desc';
+            }
+        }
+
+        ksort($result);
+
+        $definition->setOperation($oldOp);
+        return $result + $last;
+    }
+
+
     public static function table(D $definition, $operation = null) {
         $oldOp = $definition->getOperation();
         if ($operation) {
