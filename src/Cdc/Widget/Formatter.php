@@ -1,14 +1,14 @@
-<?php
+<?php namespace Cdc\Widget;
 
-namespace Cdc\Widget;
-
-class Formatter {
+class Formatter
+{
 
     public static $dateFormat;
 
     public static $dateTimeFormat;
 
-    public static function boolean(&$row, $rowset, $index, $args = array()) {
+    public static function boolean(&$row, $rowset, $index, $args = array())
+    {
         if ($row[$index]) {
             $f = '<span class="fa fa-check"></span>';
         } else {
@@ -17,7 +17,18 @@ class Formatter {
         $row[$index] = $f;
     }
 
-    public static function date(&$row, $rowset, $index, $args = array()) {
+    public static function nl2br(&$row, $rowset, $index, $args = array())
+    {
+        $row[$index] = nl2br($row[$index]);
+    }
+
+    public static function simpleList(&$row, $rowset, $index, $args = array())
+    {
+        $row[$index] = str_replace(PHP_EOL, ', ', $row[$index]);
+    }
+
+    public static function date(&$row, $rowset, $index, $args = array())
+    {
         if (!self::$dateFormat) {
             self::$dateFormat = \C::$dateFormat;
         }
@@ -27,7 +38,8 @@ class Formatter {
         $row[$index] = date(self::$dateFormat, strtotime($row[$index]));
     }
 
-    public static function datetime(&$row, $rowset, $index, $args = array()) {
+    public static function datetime(&$row, $rowset, $index, $args = array())
+    {
         if (!self::$dateTimeFormat) {
             self::$dateTimeFormat = \C::$dateTimeFormat;
         }
