@@ -14,6 +14,7 @@ class Form {
     protected $template;
     public $quote_mode = ENT_QUOTES;
     public static $defaultTemplate = null;
+    public static $commonClass = 'form-control';
 
     public function __construct($def = array(), $options = array(), $input = array(), $quote_mode = ENT_QUOTES) {
         $this->_def = $def;
@@ -97,9 +98,8 @@ class Form {
 
             $v['value'] = self::obterValor($v, $this->_input, $v_full);
 
-            // Adicionar o form-control do bootstrap em todos os widgets, exceto os inline e ocultos
             if (!in_array($v['type'], array('file', 'multifile', 'hidden', 'boolean', 'checkboxes', 'radio', 'textlabel'))) {
-                $v['class'] .= ' form-control';
+                $v['class'] .= ' ' . self::$commonClass;
             }
 
             switch ($v['type']) {
