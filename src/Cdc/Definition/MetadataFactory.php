@@ -9,19 +9,30 @@ class MetadataFactory {
 
     public static function search(D $definition, $operation = null) {
         $oldOp = $definition->getOperation();
-        if ($operation) {
-            $definition->setOperation($operation);
+        if (!$operation) {
+            $operation = DEFAULT_OPERATION;
         }
+        
+        $definition->setOperation($operation);
 
         $def = $definition->query(D::TYPE_WIDGET, D::TYPE_RELATION)->fetch();
 
         $result = array();
 
         foreach ($def as $key => $value) {
-            if (self::hasTag($value, 'search')) {
+            $matches = self::hasTag($value, 'search');
+            if ($matches) {
                 if ($value['type'] == D::TYPE_RELATION) {
                     $value[D::TYPE_WIDGET]['widget'] = 'text';
                     $value[D::TYPE_WIDGET]['attributes']['class'] = 'search-general';
+                } else {
+                    $match = current($matches);
+                    $tokens = array();
+                    preg_match('#search\[(.*)\]#', $match, $tokens);
+                    $term = end($tokens);
+                    if ($term) {
+                        $value['search-operator'] = $term;
+                    }
                 }
 
             if (self::hasTag($value, 'boolean')) {

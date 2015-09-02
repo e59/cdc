@@ -532,7 +532,16 @@ class Definition {
             if ($def[$key]['type'] == self::TYPE_RELATION) {
                 $result['fts @@'] = new \Cdc\Sql\Parameter($key, "plainto_tsquery('" . \C::$pg_fts_regconfig . "', %s)", \Nette\Utils\Strings::webalize($value, ' '));
             } else {
-                    $result[$key . ' ='] = $value;
+                $op = trim(A::get($def[$key], 'search-operator', '='));
+
+                if ($op == 'like') {
+                    $k = $key . ' ' . $op;
+                    $v = '%' . $value . '%';
+                } else {
+                    $k = $key . ' ' . $op;
+                    $v = $value;
+                }
+                $result[$k] = $v;
             }
         }
 
