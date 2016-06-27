@@ -21,10 +21,13 @@
  * @subpackage Cdc_Client
  */
 
+namespace Cdc\Client;
+use \DomDocument;
+
 /**
  * Obtém informações sobre um CEP diretamente da página dos correios.
  */
-class Cdc_Client_Cep
+class Cep
 {
 
     const RESULT_CEP      = 'cep';
