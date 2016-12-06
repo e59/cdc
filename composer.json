@@ -12,15 +12,13 @@
     },
     "require": {
         "php": ">=5.4.0",
-        "nette/mail": "^2.3",
-        "nette/http": "^2.3",
-        "nette/finder": "^2.3",
-        "nette/security": "^2.3",
-        "nette/utils": "^2.3",
-        "ramsey/uuid": "^2.8",
-        "hautelook/phpass": "^0.3",
-        "moontoast/math": "^1.1",
-        "symfony/console": "^2.3",
-        "knplabs/knp-menu": "^2.0"
+        "nette/mail": "^2.4",
+        "nette/http": "^2.4",
+        "nette/finder": "^2.4",
+        "nette/security": "^2.4",
+        "nette/utils": "^2.4",
+        "ramsey/uuid": "^3.5",
+        "symfony/console": "^3.2",
+        "knplabs/knp-menu": "^2.2"
     }
 }
