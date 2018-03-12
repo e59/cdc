@@ -13,8 +13,10 @@ use \Nette\Utils\Arrays as A,
 /**
  * This would also work as simple global variables, but I need IDE autocomplete
  */
-abstract class Config extends \Nette\Object
+abstract class Config 
 {
+
+    use \Nette\SmartObject;
 
     /**
      * Array [template path, module name]

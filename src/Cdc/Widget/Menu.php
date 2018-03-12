@@ -2,7 +2,9 @@
 
 namespace Cdc\Widget;
 
-class Menu extends \Nette\Object {
+class Menu {
+
+    use \Nette\SmartObject;
 
     public static function render(\Knp\Menu\ItemInterface $menu = null, array $options = array(), $index = null) {
         if (!$menu) {

@@ -2,7 +2,9 @@
 
 namespace Cdc\Widget;
 
-class Breadcrumb extends \Nette\Object {
+class Breadcrumb {
+
+    use \Nette\SmartObject;
 
     public static function render(\Knp\Menu\ItemInterface $menu = null, array $options = array(), $index = null, $lastItem = null) {
         if (!$menu) {

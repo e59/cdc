@@ -145,8 +145,9 @@ class MetadataFactory {
 
 }
 
-class Source extends \Nette\Object {
+class Source {
 
+    use \Nette\SmartObject;
     private $config;
 
     /** @var \Nette\Database\Context */
